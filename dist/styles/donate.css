@@ -1,0 +1,85 @@
+*:not(i) {
+  transition: .3s;
+}
+
+#donate {
+  background: white;
+  color: #130F23;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
+.el3 {
+  text-align: center;
+  margin: 20px auto;
+  width: 80%;
+  border-radius: 10px;
+  background: rgba(42, 139, 240, 0.3);
+  height: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid rgb(42, 139, 240);
+  font-family: "Grotesk";
+}
+
+.el4 {
+  transition: all 0.3s ease 0s;
+  width: 100%;
+  box-sizing: border-box;
+  height: auto;
+  background: transparent;
+}
+
+.el6 {
+  text-align: center;
+  color: rgb(42, 139, 240);
+}
+
+.el7 {
+  text-align: center;
+  margin: -10px 0px 0px;
+}
+
+.el8 {
+  text-align: center;
+  color: rgb(42, 139, 240);
+}
+
+.el9 {
+  text-align: center;
+  margin: -10px 0px 0px;
+  box-sizing: border-box;
+}
+
+.el10 {
+  text-align: center;
+  color: rgb(42, 139, 240);
+}
+
+.el11 {
+  text-align: center;
+  margin: -10px 0px 0px;
+  box-sizing: border-box;
+}
+
+.el12 {
+  text-align: center;
+}
+
+.el13 {
+  text-align: center;
+  margin: 20px auto;
+  width: 80%;
+  border-radius: 10px;
+  background: rgba(42, 139, 240, 0.3);
+  height: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid rgb(42, 139, 240);
+}
