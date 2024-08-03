@@ -181,16 +181,32 @@ nav span {
 .container {
   width: 100%;
   height: auto;
-  padding-block: 10px;
+  padding-block: 20px;
   font-size: 0.8em;
   padding-inline: 8px;
   box-sizing: border-box;
 }
 
-#dow {
-  
+.container > h2 {
+  font-size: 27px;
+  margin: 0;
 }
 
+#about {
+  background: rgba(42, 139, 240, 1);
+  color: white;
+  padding-block: 25px;
+}
+
+
+#gallery {
+  background: #1B3A5E;
+  color: white;
+}
+
+#gallery *:is(img, i) {
+  transition: .8s;
+}
 
 .underline {
   text-decoration: underline;
@@ -261,6 +277,44 @@ a {
   font-size: 0.8em;
 }
 
+
+.carousel {
+  width: 300px;
+  height: 350px;
+  border-radius: 15px;
+  display: flex;
+  overflow-x: hidden;
+  padding: 5px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.carousel>img {
+  min-width: 280px !important;
+  height: 100%;
+  border-radius: inherit;
+  display: inline-block;
+  padding-inline: 5px;
+}
+
+
+.carousel-controls {
+  width: 50%;
+  align-self: flex-start;
+}
+
+
+.carousel-controls i {
+  font-size: 60px;
+  font-weight: 700;
+}
+
+.carousel-controls i:hover {
+  color: rgba(42, 139, 240, 1);
+}
+
 .message {
   width: 300px;
   height: auto;
@@ -320,6 +374,24 @@ textarea:focus {
   outline: 3px solid rgba(81, 166, 255, 0.59);
 }
 
+
+#donate {
+  background: rgba(42, 139, 240, 1);
+  color: white;
+  padding-block: 25px;
+  margin-top: 30px
+}
+
+.big-pill {
+  width: 150px;
+  height: 45px;
+  border: none;
+  border-radius: 60px;
+  color: #130F23;
+  background: white;
+  font-weight: 599;
+  font-size: 16px;
+}
 
 @media (min-width: 768px) {
   header img {

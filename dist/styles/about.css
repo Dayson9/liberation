@@ -1,0 +1,28 @@
+.about {
+  width: 100%;
+  min-height: 300px;
+}
+
+.about img {
+  width: 80%;
+  height: 190px;
+  margin: 0 auto;
+}
+
+.about p {
+  font-size: 15px;
+  width: 95%;
+  margin: 0 auto;
+  margin-block: 7px;
+}
+
+.about li {
+  font-size: 15px;
+  text-align: left;
+  margin-block: 7px;
+}
+
+.container h1 {
+  font-size: 38px;
+  font-weight: 200;
+}

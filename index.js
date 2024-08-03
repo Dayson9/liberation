@@ -27,3 +27,8 @@ app.get('/about', (req, res) => {
 app.get('/contact', (req, res) => {
   res.sendFile(__dirname+"/dist/contact.html");
 });
+
+app.get('/donate', (req, res) => {
+  res.sendFile(__dirname+"/dist/donate.html");
+});
+
