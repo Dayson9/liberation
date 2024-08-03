@@ -301,12 +301,13 @@ textarea:focus {
   height: 150px;
   padding-top: 10px;
   font-family: grotesk;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .message button {
   width: 89%;
   height: 45px;
-  border-radius: inherit;
+  border-radius: 60px;
   margin-block: 10px;
   font-size: 17px;
   border: none;
