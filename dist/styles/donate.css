@@ -1,5 +1,5 @@
 *:not(i) {
-  transition: .3s;
+  transition-duration: .3s;
 }
 
 #donate {
@@ -29,7 +29,6 @@ body {
 }
 
 .el4 {
-  transition: all 0.3s ease 0s;
   width: 100%;
   box-sizing: border-box;
   height: auto;
@@ -82,4 +81,15 @@ body {
   padding: 20px;
   box-sizing: border-box;
   border: 1px solid rgb(42, 139, 240);
+}
+
+
+@media (min-width: 768px) {
+
+
+
+    #donate {
+        margin-top: 5vh;
+        height: 100vh;
+    }
 }

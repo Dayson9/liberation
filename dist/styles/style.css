@@ -92,7 +92,7 @@ nav {
   z-index: 1;
 }
 
-nav>div {
+nav > div {
   width: 40%;
   height: 20%;
   display: grid;
@@ -393,9 +393,12 @@ textarea:focus {
   font-size: 16px;
 }
 
+
 @media (min-width: 768px) {
   header img {
-    transform: translateX(10vw);
+    justify-self: flex-start;
+    position: absolute;
+    left: 10px;
   }
 
   header h1 {
@@ -412,6 +415,11 @@ textarea:focus {
     width: 23%;
     font-size: 14px;
   }
+  
+  #about, #donate {
+      margin-top: -10vh;
+      padding-block: 5vh;
+  }
 
   #features {
     width: 80%;
@@ -422,13 +430,8 @@ textarea:focus {
     width: 80%;
     margin-left: 10%;
   }
-
-  #htu * {
-    font-size: 14px;
-  }
-
-  #htu {
-    width: 80%;
-    margin-left: 10%;
-  }
+  
+  .note, p {
+  font-size: 1.1em;
+}
 }
