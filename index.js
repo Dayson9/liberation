@@ -31,4 +31,3 @@ app.get('/contact', (req, res) => {
 app.get('/donate', (req, res) => {
   res.sendFile(__dirname+"/dist/donate.html");
 });
-
