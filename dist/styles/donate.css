@@ -92,4 +92,14 @@ body {
         margin-top: 5vh;
         height: 100vh;
     }
+    
+    .el3 {
+        width: 60%;
+    }
+}
+
+@media (min-width: 1025px) {
+    .el3 {
+        width: 40%;
+    }
 }
