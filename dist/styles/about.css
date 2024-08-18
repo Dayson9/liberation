@@ -26,3 +26,10 @@
   font-size: 38px;
   font-weight: 200;
 }
+
+@media (min-width:768px) {
+    .about img {
+        width: 50%;
+        height: 30vh;
+    }
+}

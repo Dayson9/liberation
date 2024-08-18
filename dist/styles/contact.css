@@ -1,0 +1,56 @@
+.handles {
+  width: 300px;
+  min-height: 150px;
+  display: grid;
+  grid-template: repeat(2, 2fr) / repeat(4, 1fr);
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.handles div {
+  width: 60px;
+  height: 60px;
+  font-size: 50px;
+}
+
+.blue {
+  color: dodgerblue;
+}
+
+.green {
+  color: #22B6A3;
+}
+
+.pink {
+  color: #F12F9A;
+}
+
+.blueblack {
+  color: #333657;
+}
+
+.message {
+  margin-top: 25px;
+}
+
+@media (min-width: 768px) {
+  .row-col {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    box-sizing: border-box;
+    padding-inline: 15%;
+  }
+
+  .message {
+    margin-top: 0;
+  }
+
+  p {
+    width: 30vw;
+  }
+
+}

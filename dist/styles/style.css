@@ -56,21 +56,25 @@ header i {
   font-size: 35px;
 }
 
+.fa-times {
+  font-size: 35px;
+  font-weight: 50;
+}
 
 .rowtop {
-  width: 89%;
+  width: 85%;
   height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  transform: translateX(0vw);
+  transform: translateX(-10px);
 }
 
 .header img {
   width: 40px;
   height: 40px;
-  transform: translateX(10px);
+  transform: translateX(5px);
 }
 
 .header h2 {
@@ -92,7 +96,7 @@ nav {
   z-index: 1;
 }
 
-nav > div {
+nav>div {
   width: 40%;
   height: 20%;
   display: grid;
@@ -187,7 +191,7 @@ nav span {
   box-sizing: border-box;
 }
 
-.container > h2 {
+.container>h2 {
   font-size: 27px;
   margin: 0;
 }
@@ -370,6 +374,10 @@ textarea:focus {
   background: linear-gradient(135deg, rgba(105, 78, 255, 1), rgba(42, 139, 240, 1), rgba(42, 139, 240));
 }
 
+.message button i {
+  display: inline;
+}
+
 .message button:hover {
   outline: 3px solid rgba(81, 166, 255, 0.59);
 }
@@ -395,6 +403,11 @@ textarea:focus {
 
 
 @media (min-width: 768px) {
+
+  .rowtop {
+    width: 40%;
+  }
+
   header img {
     justify-self: flex-start;
     position: absolute;
@@ -415,10 +428,11 @@ textarea:focus {
     width: 23%;
     font-size: 14px;
   }
-  
-  #about, #donate {
-      margin-top: -10vh;
-      padding-block: 5vh;
+
+  #about,
+  #donate {
+    margin-top: -10vh;
+    padding-block: 5vh;
   }
 
   #features {
@@ -430,8 +444,13 @@ textarea:focus {
     width: 80%;
     margin-left: 10%;
   }
+
+  .note,
+  p {
+    font-size: 1.1em;
+  }
   
-  .note, p {
-  font-size: 1.1em;
-}
+  .message {
+      height: 400px;
+  }
 }

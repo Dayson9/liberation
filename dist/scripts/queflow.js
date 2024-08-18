@@ -86,7 +86,7 @@ const QueFlow = ((exports) => {
       if (!elements[pieces.qfid]) {
         elements[pieces.qfid] = selectElement(pieces.qfid);
         if (!elements[pieces.qfid]) {
-          throw new Error("An error occurred while selecting element for QFID:", pieces.qfid);
+          throw new Error("An error occurred while selecting element for QFID: " + pieces.qfid);
           continue; // Skip to next element if selection failed
         }
       }
@@ -171,8 +171,15 @@ const QueFlow = ((exports) => {
 
   // Sanitizes a string to prevent potential XSS attacks.
   function sanitizeString(str) {
+    str = str.toString();
     return str.replace(/javascript:/gi, '').replace(/[^\w-_. ]/gi, function(c) {
-      return (c === "<" || c === ">") ? `&#${c.charCodeAt(0)};` : c;
+      if (c === ">") {
+        return "&gt;";
+      } else if (c === "<") {
+        return "&lt;";
+      } else {
+        return c;
+      }
     });
   }
 
@@ -185,26 +192,34 @@ const QueFlow = ((exports) => {
       parsed = "";
 
     try {
-      // Iterates through all placeholders in the template.
-      for (i = 0; i < len; i++) {
-        // Extracts the placeholder expression.
-        extracted = stringBetween(out, "{{", "}}");
+      if (len) {
+        // Iterates through all placeholders in the template.
+        for (i = 0; i < len; i++) {
+          // Extracts the placeholder expression.
+          extracted = stringBetween(out, "{{", "}}");
 
-        // Evaluates the placeholder expression.
-        parsed = Function('"use-strict"; return ' + extracted)().toString();
+          // Evaluates the placeholder expression.
+          parsed = Function('"use-strict"; return ' + extracted)().toString();
 
 
-        if (!indicator) {
-          // Replaces the placeholder with its evaluated value.
-          out = out.replace("{{" + extracted + "}}", parsed);
-        } else {
-          // Replaces the placeholder with its sanitized evaluated value.
-          out = out.replace("{{" + extracted + "}}", sanitizeString(parsed));
+          if (!indicator) {
+            // Replaces the placeholder with its evaluated value.
+            out = out.replace("{{" + extracted + "}}", parsed);
+          } else {
+            // Replaces the placeholder with its sanitized evaluated value.
+            out = out.replace("{{" + extracted + "}}", sanitizeString(parsed));
+          }
         }
+      } else {
+        out = Function('return ' + out)();
       }
     } catch (error) {
-      throw new Error("An error occurred while parsing JSX/HTML", error);
+      let reg = /Unexpected token/i;
+      // Prevents some unnecessary errors from being thrown
+      if (!reg.test(error))
+        console.error("An error occurred while parsing JSX/HTML:\n\n" + error);
     }
+
 
     // Returns the evaluated template string.
     return out;
@@ -241,24 +256,20 @@ const QueFlow = ((exports) => {
 
   // Converts JSX/HTML string into plain HTML, handling placeholders.
   function jsxToHTML(jsx) {
-    let div = document.createElement("div"),
+    let parser = new DOMParser(),
       children = [],
       out = "",
       attributes = [],
       data = [];
-
-    // Sanitizes the JSX/HTML string.
-    let sanitized = sanitizeString(jsx);
-
-    div.innerHTML = sanitized;
-    div.innerHTML = div.innerText;
+    let d = parser.parseFromString(jsx, "text/html"),
+      doc = d.body;
 
     try {
-      // Selects all child elements within the div.
-      children = div.querySelectorAll("*");
+      // Selects all child elements within the doc.
+      children = doc.querySelectorAll("*");
 
       // Iterates through each child element.
-      for(let c of children){
+      for (let c of children) {
         // Checks if the element has no children.
         if (!hasChildren(c)[0]) {
           data = [...data, ...generateComponentData(c)];
@@ -268,14 +279,17 @@ const QueFlow = ((exports) => {
       };
 
     } catch (error) {
-      throw new Error("An error occurred while processing JSX/HTML", error);
+      let reg = /Unexpected token/i;
+      // Prevents some unnecessary errors from being thrown
+      if (!reg.test(error))
+        console.error("An error occurred while processing JSX/HTML:\n\n" + error);
     }
 
-    // Removes the temporary div element from the DOM.
-    div.remove();
+    // Removes the temporary doc element from the DOM.
+    doc.remove();
 
-    let len = countPlaceholders(div.innerHTML);
-    out = evaluateTemplate(len, div.innerHTML, true);
+    let len = countPlaceholders(doc.innerHTML);
+    out = evaluateTemplate(len, doc.innerHTML, true);
 
     // Returns the parsed HTML string.
     return [out, data];
@@ -288,6 +302,7 @@ const QueFlow = ((exports) => {
     // Checks if the selector is valid.
     if (app) {
       let result = jsxToHTML(jsx);
+
       // Re-renders the element's content.
       prep = result[0];
       dataQF = [...dataQF, ...result[1]];
@@ -363,7 +378,7 @@ const QueFlow = ((exports) => {
 
     if (!isParent) {
       // Pushes innertext attribute into 'attr'
-      attr.push({ attribute: "innerHTML", value: child.innerText });
+      attr.push({ attribute: "textContent", value: child.innerText });
     }
     for (let { attribute, value } of attr) {
 
@@ -378,6 +393,7 @@ const QueFlow = ((exports) => {
 
       if (child.style[attribute] || child.style[attribute] === "") {
         child.style[attribute] = evaluateTemplate(len, value);
+
         if ((attribute.toLowerCase()) !== "src") {
           child.removeAttribute(attribute);
         }
@@ -512,27 +528,33 @@ const QueFlow = ((exports) => {
   }
 
   function renderTemplate(input, props) {
-    let len = countPlaceholders(input), i = 0;
-   
-   for(i; i < len; i++) {
-     let extracted = stringBetween(input, "{{", "}}");
-     input = input.replaceAll("{{" + extracted + "}}", props[extracted]);
-   }
+    let len = countPlaceholders(input),
+      i = 0;
+
+    for (i; i < len; i++) {
+      let extracted = stringBetween(input, "{{", "}}");
+      input = input.replaceAll("{{" + extracted + "}}", sanitizeString(props[extracted]));
+    }
+
     return input;
   }
 
-// Creates a class for managing reusable templates 
+  // Creates a class for managing reusable templates 
   class Template {
     constructor(el, templateFunc) {
       this.element = el;
-      
       this.template = templateFunc;
     }
-    
+
     renderWith(data, position = "append") {
-      let template = (this.template instanceof Function) ? sanitizeString(this.template(data)) : sanitizeString(this.template);
-      let rendered = renderTemplate(template, data);
-      Render(rendered, this.element, position);
+      let template = (this.template instanceof Function) ? this.template(data) : this.template;
+
+      let rendered = renderTemplate(template, data),
+        r = jsxToHTML(rendered),
+        el = document.querySelector(this.element),
+        html = el.innerHTML;
+
+      el.innerHTML = html + r[0];
     }
   }
 

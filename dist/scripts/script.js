@@ -41,3 +41,27 @@ right.addEventListener("click", () => {
   })
 })
 }
+
+
+const nav = document.querySelector("nav"), trigger = document.querySelector("#trigger"), navLinks = nav.querySelectorAll("a");
+
+var navIsOpened = 0;
+
+trigger.addEventListener("touchstart", () =>{
+  if(navIsOpened) {
+    nav.style.left = "-100%";
+    navIsOpened = 0;
+    trigger.className = "bx bx-menu-alt-left";
+  } else {
+    nav.style.left = "0%";
+    navIsOpened = 1;
+    trigger.className = "fa fa-times";
+  }
+});
+
+navLinks.forEach((elem) => {
+  elem.addEventListener("click", () => {
+    nav.style.left = "-100%";
+    navIsOpened = 0;
+  })
+})
