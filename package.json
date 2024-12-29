@@ -4,7 +4,7 @@
   "description": "CCC Liberation Parish official website",
   "main": "index.js",
   "repository": "https://github.com/Dayson9/liberation",
-  "author": "Render Developers (Dayson)",
+  "author": "Dayson",
   "license": "MIT",
   "private": false,
   "scripts": {
